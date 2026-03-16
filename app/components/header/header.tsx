@@ -67,7 +67,7 @@ export default function Header() {
           href="/"
           className="shrink-0 text-[64px] leading-none font-black items-center tracking-tight text-[#89ff1a]"
         >
-          vint
+          Your Logo
         </Link>
 
         <nav className="hidden flex-1 items-center justify-center gap-7 text-[18px] font-semibold lg:flex">
