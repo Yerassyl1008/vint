@@ -1,6 +1,66 @@
+"use client";
+
 import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, "Введите имя (минимум 2 символа)."),
+  contact: z
+    .string()
+    .trim()
+    .min(4, "Введите телефон или Telegram.")
+    .refine((value) => {
+      const normalized = value.replace(/\s+/g, "");
+      const phoneDigits = normalized.replace(/\D/g, "");
+      const isPhone = phoneDigits.length >= 10;
+      const isTelegram = /^@?[a-zA-Z0-9_]{5,}$/.test(normalized);
+      return isPhone || isTelegram;
+    }, "Укажите корректный телефон или Telegram."),
+  task: z
+    .string()
+    .trim()
+    .min(10, "Опишите задачу подробнее (минимум 10 символов)."),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+type FormErrors = Partial<Record<keyof ContactFormData, string>>;
 
 export default function Contacts() {
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitted(false);
+
+    const formData = new FormData(event.currentTarget);
+    const values: ContactFormData = {
+      name: String(formData.get("name") ?? ""),
+      contact: String(formData.get("contact") ?? ""),
+      task: String(formData.get("task") ?? ""),
+    };
+
+    const result = contactSchema.safeParse(values);
+
+    if (!result.success) {
+      const nextErrors: FormErrors = {};
+      const fieldErrors = result.error.flatten().fieldErrors;
+      if (fieldErrors.name?.[0]) nextErrors.name = fieldErrors.name[0];
+      if (fieldErrors.contact?.[0]) nextErrors.contact = fieldErrors.contact[0];
+      if (fieldErrors.task?.[0]) nextErrors.task = fieldErrors.task[0];
+      setErrors(nextErrors);
+      return;
+    }
+
+    setErrors({});
+    setIsSubmitted(true);
+    event.currentTarget.reset();
+  };
+
   return (
     <section
       className="relative overflow-hidden border-t border-white/10 bg-[#04070d] py-16 text-white lg:py-20"
@@ -54,32 +114,68 @@ export default function Contacts() {
           </div>
         </div>
 
-        <form className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm sm:p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm sm:p-8"
+          noValidate
+        >
           <h3 className="text-2xl font-bold sm:text-3xl">Форма заявки</h3>
 
           <div className="mt-6 space-y-5">
             <label className="block">
               <span className="mb-2 block text-sm font-medium text-zinc-300 sm:text-base">
-                Имя
+                Ваше имя
               </span>
               <input
                 type="text"
                 name="name"
                 placeholder="Ваше имя"
-                className="w-full rounded-2xl border border-white/15 bg-[#0b0f16] px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-[#89ff1a]"
+                aria-invalid={Boolean(errors.name)}
+                className={`w-full rounded-2xl border bg-[#0b0f16] px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-[#89ff1a] ${
+                  errors.name ? "border-red-400/80" : "border-white/15"
+                }`}
               />
+              {errors.name ? (
+                <span className="mt-2 block text-sm text-red-300">{errors.name}</span>
+              ) : null}
             </label>
 
             <label className="block">
               <span className="mb-2 block text-sm font-medium text-zinc-300 sm:text-base">
-                Суть задачи
+                Телефон или Telegram
+              </span>
+              <input
+                type="text"
+                name="contact"
+                placeholder="+7 (___) ___-__-__ или @username"
+                aria-invalid={Boolean(errors.contact)}
+                className={`w-full rounded-2xl border bg-[#0b0f16] px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-[#89ff1a] ${
+                  errors.contact ? "border-red-400/80" : "border-white/15"
+                }`}
+              />
+              {errors.contact ? (
+                <span className="mt-2 block text-sm text-red-300">
+                  {errors.contact}
+                </span>
+              ) : null}
+            </label>
+
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-zinc-300 sm:text-base">
+                Кратко о задаче
               </span>
               <textarea
                 name="task"
                 rows={5}
                 placeholder="Кратко опишите задачу"
-                className="w-full resize-none rounded-2xl border border-white/15 bg-[#0b0f16] px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-[#89ff1a]"
+                aria-invalid={Boolean(errors.task)}
+                className={`w-full resize-none rounded-2xl border bg-[#0b0f16] px-4 py-3 text-white outline-none transition placeholder:text-zinc-500 focus:border-[#89ff1a] ${
+                  errors.task ? "border-red-400/80" : "border-white/15"
+                }`}
               />
+              {errors.task ? (
+                <span className="mt-2 block text-sm text-red-300">{errors.task}</span>
+              ) : null}
             </label>
           </div>
 
@@ -89,6 +185,11 @@ export default function Contacts() {
           >
             Отправить
           </button>
+          {isSubmitted ? (
+            <p className="mt-3 text-sm text-[#89ff1a]">
+              Спасибо! Заявка прошла валидацию.
+            </p>
+          ) : null}
         </form>
       </div>
     </section>
