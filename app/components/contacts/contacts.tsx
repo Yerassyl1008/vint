@@ -63,7 +63,8 @@ export default function Contacts() {
 
   return (
     <section
-      className="relative overflow-hidden border-t border-white/10 bg-[#04070d] py-16 text-white lg:py-20"
+      id="contacts"
+      className="relative overflow-hidden bg-[#04070d] py-16 text-white lg:py-20"
       style={{
         backgroundImage:
           "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.14) 1px, transparent 1px)",

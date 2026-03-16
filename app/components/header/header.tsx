@@ -1,12 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const navItems = [
-  "Услуги",
-  "Кейсы",
-  "Как мы работаем",
-  "Отзывы",
-  "FAQ",
-  "Контакты",
+  { label: "Услуги", href: "#about" },
+  { label: "Проекты", href: "#work" },
+  { label: "Контакты", href: "#contacts" },
 ];
 
 function TelegramIcon() {
@@ -55,7 +53,7 @@ function MenuIcon() {
 export default function Header() {
   return (
     <header
-      className="relative border-b border-white/10 bg-[#04070d] text-white"
+      className="sticky top-0 z-50 border-b border-white/10 bg-[#04070d]/95 text-white backdrop-blur-md"
       style={{
         backgroundImage:
           "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.14) 1px, transparent 1px)",
@@ -65,20 +63,20 @@ export default function Header() {
       <div className="mx-auto flex h-[84px] w-full max-w-[1360px] items-center gap-8 px-6 lg:px-8">
         <Link
           href="/"
-          className="shrink-0 text-[64px] leading-none font-black items-center tracking-tight text-[#89ff1a]"
+          className="shrink-0 text-3xl leading-none font-black items-center tracking-tight text-[#89ff1a]" 
         >
-         Vint
+         Bas Team
         </Link>
 
         <nav className="hidden flex-1 items-center justify-center gap-7 text-[18px] font-semibold lg:flex">
           {navItems.map((item) => (
-            <Link
-              key={item}
-              href="#"
+            <a
+              key={item.label}
+              href={item.href}
               className="whitespace-nowrap text-white/95 transition hover:text-[#89ff1a]"
             >
-              {item}
-            </Link>
+              {item.label}
+            </a>
           ))}
         </nav>
 
@@ -92,9 +90,9 @@ export default function Header() {
           <Link
             href="#"
             aria-label="Telegram"
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-[#34a9df] transition hover:scale-105"
+            className="flex items-center justify-center rounded-full bg-[#34a9df] transition hover:scale-105"
           >
-            <TelegramIcon />
+            <Image src="/Telegram_2019_Logo.svg.png" alt="Telegram" width={34} height={34} />
           </Link>
           <button
             type="button"

@@ -1,5 +1,11 @@
 import Link from "next/link";
 
+const navItems = [
+  { label: "Услуги", href: "#about" },
+  { label: "Проекты", href: "#work" },
+  { label: "Контакты", href: "#contacts" },
+];
+
 export default function Footer() {
   return (
     <footer
@@ -25,16 +31,12 @@ export default function Footer() {
             </p>
           </div>
 
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-zinc-200">
-            <Link href="#" className="transition hover:text-[#89ff1a]">
-              Услуги
-            </Link>
-            <Link href="#" className="transition hover:text-[#89ff1a]">
-              Проекты
-            </Link>
-            <Link href="#" className="transition hover:text-[#89ff1a]">
-              Контакты
-            </Link>
+          <nav className="flex  flex-col flex-wrap items-center gap-x-6 gap-y-2 text-zinc-200">
+            {navItems.map((item) => (
+              <Link key={item.label} href={item.href} className="transition hover:text-[#89ff1a]">
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
           <div className="space-y-2 text-zinc-200">
