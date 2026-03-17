@@ -44,7 +44,7 @@ export default function Hero() {
           </div>
 
           <Link
-            href="#"
+            href="/contacts"
             className="mt-9 inline-flex items-center gap-2 rounded-full bg-[#89ff1a] px-8 py-4 text-base font-bold text-black transition hover:bg-[#9dff46]"
           >
             Начать проект

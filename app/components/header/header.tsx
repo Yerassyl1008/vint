@@ -123,12 +123,12 @@ export default function Header() {
           >
             <Image src="/Telegram_2019_Logo.svg.png" alt="Telegram" width={34} height={34} />
           </Link>
-          <button
-            type="button"
+          <Link
+            href="/contacts"
             className="rounded-full bg-[#89ff1a] px-8 py-3 text-[18px] font-bold text-black transition hover:bg-[#9dff46]"
           >
             Обсудить проект
-          </button>
+          </Link>
         </div>
 
         <div className="ml-auto flex items-center gap-3 lg:hidden">

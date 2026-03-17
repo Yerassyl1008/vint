@@ -113,7 +113,7 @@ export default function Contacts() {
           </p>
 
           <Link
-            href="https://t.me/username"
+            href="https://t.me/Startup0916"
             target="_blank"
             rel="noreferrer"
             className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#89ff1a] px-8 py-4 text-base font-bold text-black transition hover:bg-[#9dff46]"
