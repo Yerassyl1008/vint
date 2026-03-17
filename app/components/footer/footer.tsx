@@ -31,7 +31,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <nav className="flex  flex-col flex-wrap items-center gap-x-6 gap-y-2 text-zinc-200">
+          <nav className="flex  flex-row flex-wrap items-center gap-x-6 gap-y-2 text-zinc-200 md:flex-col">
             {navItems.map((item) => (
               <Link key={item.label} href={item.href} className="transition hover:text-[#89ff1a]">
                 {item.label}
