@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Услуги", href: "#about" },
-  { label: "Проекты", href: "#projects" },
-  { label: "Контакты", href: "#contacts" },
+  { label: "Услуги", href: "/services" },
+  { label: "Проекты", href: "/projects" },
+  { label: "Контакты", href: "/contacts" },
 ];
 
 function TelegramIcon() {
@@ -99,13 +99,13 @@ export default function Header() {
 
         <nav className="hidden flex-1 items-center justify-center gap-7 text-[18px] font-semibold lg:flex">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               className="whitespace-nowrap text-white/95 transition hover:text-[#89ff1a]"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -162,14 +162,14 @@ export default function Header() {
         <div className="border-t border-white/10 bg-[#050910] px-6 py-6 lg:hidden">
           <nav className="flex flex-col gap-4 text-lg font-semibold">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 onClick={closeMenu}
                 className="text-white/95 transition hover:text-[#89ff1a]"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 

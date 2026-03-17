@@ -32,12 +32,16 @@ type FormErrors = Partial<Record<keyof ContactFormData, string>>;
 export default function Contacts() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setIsSubmitted(false);
+    setSubmitError("");
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(formElement);
     const values: ContactFormData = {
       name: String(formData.get("name") ?? ""),
       contact: String(formData.get("contact") ?? ""),
@@ -57,8 +61,33 @@ export default function Contacts() {
     }
 
     setErrors({});
-    setIsSubmitted(true);
-    event.currentTarget.reset();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(result.data),
+      });
+
+      if (!response.ok) {
+        setSubmitError(
+          "Не удалось отправить заявку. Попробуйте еще раз или напишите нам в Telegram.",
+        );
+        return;
+      }
+
+      setIsSubmitted(true);
+      formElement.reset();
+    } catch {
+      setSubmitError(
+        "Ошибка сети. Проверьте интернет и попробуйте отправить снова.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -182,14 +211,18 @@ export default function Contacts() {
 
           <button
             type="submit"
-            className="mt-7 rounded-full bg-[#89ff1a] px-8 py-3 text-base font-bold text-black transition hover:bg-[#9dff46]"
+            disabled={isSubmitting}
+            className="mt-7 rounded-full bg-[#89ff1a] px-8 py-3 text-base font-bold text-black transition hover:bg-[#9dff46] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Отправить
+            {isSubmitting ? "Отправка..." : "Отправить"}
           </button>
           {isSubmitted ? (
             <p className="mt-3 text-sm text-[#89ff1a]">
-              Спасибо! Заявка прошла валидацию.
+              Спасибо! Заявка отправлена, скоро свяжемся с вами.
             </p>
+          ) : null}
+          {submitError ? (
+            <p className="mt-3 text-sm text-red-300">{submitError}</p>
           ) : null}
         </form>
       </div>

@@ -19,11 +19,7 @@ const projects = [
     description: "Платформа для продажи Telegram Stars и Premium с интеграцией платежей, антифродом, реферальной системой и TON blockchain.",
     image: "/image (10).png",
     },
-    {
-    title: "TGSuperGift — NFT сервис",
-    description: "Сервис автоматизированной продажи NFT с интеграцией Telegram и криптоинфраструктуры, включая работу с маркетплейсами.",
-    image: "/image (12).png",
-    },
+   
 ];
 
 export default function ProjectsSection() {
@@ -51,30 +47,28 @@ export default function ProjectsSection() {
           работающий digital-продукт.
         </p>
 
-        <div className="projects-scroll mt-10 overflow-x-auto pb-2 lg:mt-12">
-          <div className="flex min-w-max gap-5">
-            {projects.map((project) => (
-              <article
-                key={project.title}
-                className="group w-[320px] shrink-0 rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition duration-300 hover:scale-[1.02] hover:border-[#89ff1a]/40 hover:bg-white/[0.06] sm:w-[360px]"
-              >
-                <div className="overflow-hidden rounded-2xl border border-white/10">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="h-44 w-full object-cover transition duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className="mt-4 text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#89ff1a]">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-300 transition-colors duration-300 group-hover:text-zinc-200 sm:text-base">
-                  {project.description}
-                </p>
-              </article>
-            ))}
-          </div>
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:mt-12">
+          {projects.map((project) => (
+            <article
+              key={project.title}
+              className="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition duration-300 hover:scale-[1.02] hover:border-[#89ff1a]/40 hover:bg-white/[0.06]"
+            >
+              <div className="overflow-hidden rounded-2xl border border-white/10">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <h3 className="mt-4 text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#89ff1a]">
+                {project.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-300 transition-colors duration-300 group-hover:text-zinc-200 sm:text-base">
+                {project.description}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

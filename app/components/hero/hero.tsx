@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section
-      className="relative overflow-hidden bg-[#04070d] text-white"
+      className="relative overflow-x-hidden bg-[#04070d] text-white"
       style={{
         backgroundImage:
           "radial-gradient(circle at 20% 15%, rgba(255,255,255,0.14) 1px, transparent 1px)",
@@ -18,7 +18,7 @@ export default function Hero() {
         <div className="hero-mesh hero-mesh-slow absolute right-[15%] top-[48%] h-64 w-64 rounded-full bg-[#ddd1ff]/22" />
       </div>
 
-      <div className="relative mx-auto grid min-h-[calc(100vh-84px)] w-full max-w-[1360px] items-center gap-10 px-6 py-14 lg:grid-cols-2 lg:gap-14 lg:px-8 lg:py-20">
+      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-10 px-6 py-14 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:py-16">
         <div className="max-w-[680px]">
           <h1 className="text-4xl leading-[1.1] font-extrabold text-white sm:text-5xl lg:text-5xl">
             Создаем цифровые решения для роста вашего бизнеса
@@ -31,6 +31,18 @@ export default function Hero() {
             <br />в топ поисковых систем
           </p>
 
+          <div className="mt-6 flex flex-wrap gap-3">
+            <span className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200">
+              Web-разработка
+            </span>
+            <span className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200">
+              UX/UI дизайн
+            </span>
+            <span className="rounded-full border border-[#89ff1a]/30 bg-[#89ff1a]/10 px-4 py-2 text-sm font-medium text-[#cfff9f]">
+              SEO и аналитика
+            </span>
+          </div>
+
           <Link
             href="#"
             className="mt-9 inline-flex items-center gap-2 rounded-full bg-[#89ff1a] px-8 py-4 text-base font-bold text-black transition hover:bg-[#9dff46]"
@@ -38,9 +50,32 @@ export default function Hero() {
             Начать проект
             <span aria-hidden="true">→</span>
           </Link>
+
+          <div className="mt-8 grid max-w-[560px] grid-cols-3 gap-3 sm:gap-4">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+              <p className="text-2xl font-extrabold text-[#89ff1a]">30+</p>
+              <p className="mt-1 text-xs text-zinc-300 sm:text-sm">проектов в портфеле</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+              <p className="text-2xl font-extrabold text-[#89ff1a]">8 лет</p>
+              <p className="mt-1 text-xs text-zinc-300 sm:text-sm">в digital-разработке</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+              <p className="text-2xl font-extrabold text-[#89ff1a]">14 дней</p>
+              <p className="mt-1 text-xs text-zinc-300 sm:text-sm">на первый релиз</p>
+            </div>
+          </div>
         </div>
 
         <div className="relative mx-auto w-full max-w-[560px] lg:mx-0">
+          <div className="absolute left-3 top-8 hidden rounded-2xl border border-white/10 bg-[#0b111a]/80 px-4 py-3 text-sm text-zinc-200 backdrop-blur-md xl:block">
+            <p className="text-[#89ff1a]">+42%</p>
+            <p className="mt-1">рост конверсии</p>
+          </div>
+          <div className="absolute right-3 bottom-8 hidden rounded-2xl border border-white/10 bg-[#0b111a]/80 px-4 py-3 text-sm text-zinc-200 backdrop-blur-md xl:block">
+            <p className="text-[#8dcfff]">MVP за 3 недели</p>
+            <p className="mt-1">быстрый запуск</p>
+          </div>
           <div className="hero-float absolute inset-0 rounded-[32px] bg-gradient-to-br from-[#89ff1a]/25 via-[#8dcfff]/12 to-transparent blur-2xl" />
           <div className="relative overflow-hidden rounded-[32px] border border-white/15 bg-[#0b111a]/70 p-6 backdrop-blur-md sm:p-8">
             <div className="mb-5 flex items-center gap-2 border-b border-white/10 pb-4">
