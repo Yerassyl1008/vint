@@ -1,6 +1,18 @@
+ "use client";
+
 import Link from "next/link";
+import type { MouseEvent } from "react";
 
 export default function Hero() {
+  const handleContactsClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    const contactsSection = document.getElementById("contacts");
+    if (!contactsSection) return;
+
+    event.preventDefault();
+    contactsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", "#contacts");
+  };
+
   return (
     <section
       className="relative overflow-x-hidden bg-[#04070d] text-white"
@@ -44,7 +56,8 @@ export default function Hero() {
           </div>
 
           <Link
-            href="/contacts"
+            href="#contacts"
+            onClick={handleContactsClick}
             className="mt-9 inline-flex items-center gap-2 rounded-full bg-[#89ff1a] px-8 py-4 text-base font-bold text-black transition hover:bg-[#9dff46]"
           >
             Начать проект

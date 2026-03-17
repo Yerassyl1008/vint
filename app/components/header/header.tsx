@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Услуги", href: "/services" },
+  { label: "Главная", href: "/" },
   { label: "Проекты", href: "/projects" },
   { label: "Контакты", href: "/contacts" },
 ];
@@ -71,6 +71,15 @@ function CloseIcon() {
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const handleContactsClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    const contactsSection = document.getElementById("contacts");
+    if (!contactsSection) return;
+
+    event.preventDefault();
+    contactsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", "#contacts");
+  };
+
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -117,14 +126,15 @@ export default function Header() {
             +7 (952) 539-49-71
           </Link>
           <Link
-            href="#"
+            href="https://t.me/Startup0916"
             aria-label="Telegram"
             className="flex items-center justify-center rounded-full bg-[#34a9df] transition hover:scale-105"
           >
             <Image src="/Telegram_2019_Logo.svg.png" alt="Telegram" width={34} height={34} />
           </Link>
           <Link
-            href="/contacts"
+            href="/#contacts"
+            onClick={handleContactsClick}
             className="rounded-full bg-[#89ff1a] px-8 py-3 text-[18px] font-bold text-black transition hover:bg-[#9dff46]"
           >
             Обсудить проект
