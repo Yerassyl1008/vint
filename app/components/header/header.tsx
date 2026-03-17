@@ -1,9 +1,12 @@
+ "use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "Услуги", href: "#about" },
-  { label: "Проекты", href: "#work" },
+  { label: "Проекты", href: "#projects" },
   { label: "Контакты", href: "#contacts" },
 ];
 
@@ -50,7 +53,33 @@ function MenuIcon() {
   );
 }
 
+function CloseIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-6 w-6 stroke-white"
+      fill="none"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    >
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
+  );
+}
+
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <header
       className="sticky top-0 z-50 border-b border-white/10 bg-[#04070d]/95 text-white backdrop-blur-md"
@@ -85,7 +114,7 @@ export default function Header() {
             href="tel:+79651177403"
             className="whitespace-nowrap text-[18px] font-semibold leading-none text-white/95 transition hover:text-[#89ff1a]"
           >
-            +7 (965) 117-74-03
+            +7 (952) 539-49-71
           </Link>
           <Link
             href="#"
@@ -110,18 +139,58 @@ export default function Header() {
           >
             <TelegramIcon />
           </Link>
-          <button
-            type="button"
+          <Link
+            href="tel:+79525394971"
             aria-label="Телефон"
             className="flex h-9 w-9 items-center justify-center"
           >
             <PhoneIcon />
-          </button>
-          <button type="button" aria-label="Открыть меню" className="flex h-9 w-9 items-center justify-center">
-            <MenuIcon />
+          </Link>
+          <button
+            type="button"
+            aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            className="flex h-9 w-9 items-center justify-center"
+          >
+            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
       </div>
+
+      {isMenuOpen && (
+        <div className="border-t border-white/10 bg-[#050910] px-6 py-6 lg:hidden">
+          <nav className="flex flex-col gap-4 text-lg font-semibold">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={closeMenu}
+                className="text-white/95 transition hover:text-[#89ff1a]"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-6 flex flex-col gap-4">
+            <Link
+              href="tel:+79525394971"
+              onClick={closeMenu}
+              className="text-lg font-semibold text-white/95 transition hover:text-[#89ff1a]"
+            >
+              +7 (952) 539-49-71
+            </Link>
+            <button
+              type="button"
+              onClick={closeMenu}
+              className="w-full rounded-full bg-[#89ff1a] px-6 py-3 text-base font-bold text-black transition hover:bg-[#9dff46]"
+            >
+              Обсудить проект
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
