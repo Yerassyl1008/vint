@@ -1,69 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bas Team Website
 
-## Contact form backend (Node.js + Telegram)
+Сайт студии Bas Team на Next.js (App Router) с адаптивным интерфейсом и backend-обработчиком формы в Telegram.
 
-The project has a backend handler at `app/api/contact/route.ts` that receives form data and sends it to Telegram Bot API.
+## Технологический стек
 
-### 1) Configure environment variables
+- **Frontend:** Next.js 16, React 19, TypeScript
+- **UI:** Tailwind CSS 4
+- **Backend:** Next.js Route Handlers (Node.js runtime)
+- **Валидация формы:** Zod
+- **Деплой:** Vercel
 
-Copy `.env.example` to `.env.local` and set real values:
+## Что реализовано
+
+- Главная страница с секциями:
+  - Hero
+  - Услуги
+  - Проекты
+  - Контакты
+- Отдельные страницы:
+  - `/services`
+  - `/projects`
+  - `/contacts`
+- Header + mobile burger меню
+- Footer с навигацией, контактами и WhatsApp-иконкой
+- Форма обратной связи с отправкой данных в Telegram
+
+## Структура проекта
+
+```txt
+app/
+  api/contact/route.ts            # backend endpoint формы
+  components/
+    header/
+    hero/
+    about/
+    work/
+    projects/
+    contacts/
+    footer/
+  main-page/page.tsx              # композиция главной страницы
+  services/page.tsx
+  projects/page.tsx
+  contacts/page.tsx
+  page.tsx                        # корневой роут, рендерит main-page
+```
+
+## Локальный запуск
+
+1. Установить зависимости:
+
+```bash
+npm install
+```
+
+2. Создать файл `.env.local` на основе `.env.example`:
 
 ```bash
 TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
 ```
 
-### 2) How to get credentials
-
-- Create bot in Telegram via [@BotFather](https://t.me/BotFather) and copy token.
-- Open chat with your bot (or add bot to a group/channel).
-- Get chat id by calling:
+3. Запустить проект:
 
 ```bash
+npm run dev
+```
+
+4. Открыть:
+
+```txt
+http://localhost:3000
+```
+
+## Backend формы (Telegram)
+
+Эндпоинт: `POST /api/contact`  
+Файл: `app/api/contact/route.ts`
+
+Что делает:
+- принимает JSON с полями `name`, `contact`, `task`
+- валидирует payload
+- отправляет сообщение через Telegram Bot API `sendMessage`
+
+### Как получить Telegram данные
+
+1. Создать бота через [@BotFather](https://t.me/BotFather)
+2. Взять токен и записать в `TELEGRAM_BOT_TOKEN`
+3. Написать боту `/start`
+4. Открыть:
+
+```txt
 https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
 ```
 
-Find `chat.id` in the response JSON and place it into `TELEGRAM_CHAT_ID`.
+5. В JSON найти `message.chat.id` и записать в `TELEGRAM_CHAT_ID`
 
-### 3) Run project
+## Деплой на Vercel
+
+1. Подключить Git-репозиторий к Vercel
+2. В `Project Settings -> Environment Variables` добавить:
+   - `TELEGRAM_BOT_TOKEN`
+   - `TELEGRAM_CHAT_ID`
+3. Сделать redeploy проекта
+
+### Важно
+
+- `.env.local` не коммитится в Git
+- если токен был опубликован, его нужно перевыпустить в `@BotFather`
+
+## Полезные команды
 
 ```bash
-npm run dev
+npm run dev      # локальная разработка
+npm run build    # production build
+npm run start    # запуск production-сборки
+npm run lint     # eslint
 ```
 
-Now the form in `Контакты` sends submissions to `/api/contact`, and backend forwards them to Telegram.
+## Частые проблемы
 
-## Getting Started
+### Форма не работает на Vercel
 
-First, run the development server:
+Обычно причина в env-переменных:
+- не добавлены `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID`
+- не выполнен redeploy после добавления env
+- бот не получил `/start`, поэтому chat id невалиден
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Проверяйте логи функции `/api/contact` в Vercel.
