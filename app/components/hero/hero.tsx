@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import type { MouseEvent } from "react";
 
-/** Декоративные превью для макета (стабильные по seed) */
+/** Декоративные превью для макета (стабильные по seed) — B2B-маркетплейс */
 const mockImages = {
-  hero: "https://picsum.photos/seed/basteam-hero/200/120",
-  cardA: "https://picsum.photos/seed/basteam-a/160/100",
-  cardB: "https://picsum.photos/seed/basteam-b/160/100",
+  marketplaceBanner: "https://picsum.photos/seed/basteam-b2b-banner/200/120",
+  suppliers: "https://picsum.photos/seed/basteam-suppliers/160/100",
+  rfq: "https://picsum.photos/seed/basteam-rfq/160/100",
 } as const;
 
 function QuoteIcon({ className }: { className?: string }) {
@@ -183,72 +183,152 @@ export default function Hero() {
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-3 sm:p-4">
                 <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                   <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
-                    Превью сайта
+                    CRM · админ-панель
                   </span>
                   <div className="flex items-center gap-2 text-[9px] text-zinc-500">
                     <span>Next.js</span>
                     <span className="text-zinc-600">·</span>
-                    <span>Tailwind</span>
+                    <span>PostgreSQL</span>
                     <span className="rounded border border-[#89ff1a]/30 bg-[#89ff1a]/10 px-1.5 py-0.5 font-medium text-[#cfff9f]">
-                      v2.4
+                      staging
                     </span>
                   </div>
                 </div>
                 <div className="flex gap-2 sm:gap-3">
-                  <div className="flex w-[28%] shrink-0 flex-col gap-2 rounded-lg border border-dashed border-white/15 bg-[#0f1622]/80 p-2">
-                    <p className="text-[9px] font-medium text-zinc-500">Меню</p>
-                    <span className="text-[10px] text-zinc-300">Главная</span>
-                    <span className="text-[10px] text-zinc-400">Каталог</span>
-                    <span className="text-[10px] text-zinc-400">Доставка</span>
-                    <span className="text-[10px] text-zinc-400">Контакты</span>
-                    <div className="mt-1 space-y-1.5 border-t border-white/10 pt-2">
-                      <div className="h-6 rounded-md bg-white/[0.06]" />
-                      <div className="h-6 rounded-md bg-white/[0.06]" />
+                  <div className="flex w-[32%] min-w-[7.5rem] shrink-0 flex-col rounded-lg border border-white/12 bg-gradient-to-b from-[#0c121c] to-[#080c14] p-2 shadow-inner shadow-black/40">
+                    <div className="mb-2 flex items-center gap-1.5 border-b border-white/10 pb-2">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#89ff1a]/20 text-[9px] font-bold text-[#cfff9f]">
+                        B
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[9px] font-semibold text-zinc-200">Bas CRM</p>
+                        <p className="text-[7px] text-zinc-500">Панель менеджера</p>
+                      </div>
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" title="" />
+                    </div>
+                    <div className="mb-2 flex items-center gap-1 rounded-md border border-white/10 bg-black/30 px-1.5 py-1">
+                      <svg
+                        className="h-2.5 w-2.5 shrink-0 text-zinc-500"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        aria-hidden="true"
+                      >
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="M20 20l-3-3" strokeLinecap="round" />
+                      </svg>
+                      <span className="truncate text-[7px] text-zinc-500">Поиск по клиентам…</span>
+                    </div>
+                    <nav className="space-y-0.5" aria-hidden="true">
+                      <div className="flex items-center gap-1.5 rounded-md border border-[#89ff1a]/25 bg-[#89ff1a]/10 px-1.5 py-1 text-[8px] font-medium text-[#cfff9f]">
+                        <svg className="h-3 w-3 shrink-0 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                        </svg>
+                        Дашборд
+                      </div>
+                      <div className="flex items-center gap-1.5 rounded-md px-1.5 py-1 text-[8px] text-zinc-400">
+                        <svg className="h-3 w-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        Клиенты
+                      </div>
+                      <div className="flex items-center gap-1.5 rounded-md px-1.5 py-1 text-[8px] text-zinc-400">
+                        <svg className="h-3 w-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" strokeLinecap="round" />
+                        </svg>
+                        Сделки
+                      </div>
+                      <div className="flex items-center gap-1.5 rounded-md px-1.5 py-1 text-[8px] text-zinc-400">
+                        <svg className="h-3 w-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeLinecap="round" />
+                        </svg>
+                        Финансы
+                      </div>
+                    </nav>
+                    <div className="mt-2 grid grid-cols-2 gap-1 border-t border-white/10 pt-2">
+                      <div className="rounded border border-white/8 bg-white/[0.04] px-1 py-1.5 text-center">
+                        <p className="text-[10px] font-bold leading-none text-[#89ff1a]">1.2k</p>
+                        <p className="mt-0.5 text-[6px] uppercase tracking-wide text-zinc-500">лиды</p>
+                      </div>
+                      <div className="rounded border border-white/8 bg-white/[0.04] px-1 py-1.5 text-center">
+                        <p className="text-[10px] font-bold leading-none text-[#8dcfff]">94%</p>
+                        <p className="mt-0.5 text-[6px] uppercase tracking-wide text-zinc-500">воронка</p>
+                      </div>
+                    </div>
+                    <div className="mt-2 flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] p-1.5">
+                      <div className="h-6 w-6 shrink-0 rounded-full bg-gradient-to-br from-[#89ff1a]/50 to-[#34a9df]/40 ring-1 ring-white/15" />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[8px] font-medium text-zinc-300">Администратор</p>
+                        <p className="text-[7px] text-emerald-400/90">● В сети</p>
+                      </div>
                     </div>
                   </div>
                   <div className="min-w-0 flex-1 space-y-2">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[11px] font-semibold text-white">Интернет-магазин</span>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="text-[11px] font-semibold text-white">B2B-маркетплейс</span>
+                      <span className="rounded-full border border-[#8dcfff]/25 bg-[#8dcfff]/10 px-2 py-0.5 text-[8px] font-medium text-[#bae6fd]">
+                        ERP
+                      </span>
                       <span className="rounded-full bg-white/10 px-2 py-0.5 text-[8px] text-zinc-400">
-                        в разработке
+                        RFQ · тендеры
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      <span className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[7px] text-zinc-500">
+                        Поставщики
+                      </span>
+                      <span className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[7px] text-zinc-500">
+                        Закупки
+                      </span>
+                      <span className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[7px] text-zinc-500">
+                        Логистика
                       </span>
                     </div>
                     <div className="relative h-[72px] overflow-hidden rounded-lg border border-white/10 sm:h-[84px]">
                       <Image
-                        src={mockImages.hero}
+                        src={mockImages.marketplaceBanner}
                         alt=""
                         fill
                         className="object-cover opacity-90"
                         sizes="(max-width: 640px) 100vw, 280px"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b111a] via-[#0b111a]/40 to-transparent" />
-                      <p className="absolute bottom-2 left-2 max-w-[90%] text-[10px] font-medium text-white drop-shadow">
-                        Новая коллекция — скидки до 30%
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b111a] via-[#0b111a]/50 to-transparent" />
+                      <p className="absolute bottom-2 left-2 max-w-[92%] text-[10px] font-medium leading-tight text-white drop-shadow">
+                        Поставщики и заявки — одна площадка для закупок
                       </p>
                     </div>
                     <div className="grid grid-cols-2 gap-1.5">
                       <div className="relative h-16 overflow-hidden rounded-lg border border-white/10">
                         <Image
-                          src={mockImages.cardA}
+                          src={mockImages.suppliers}
                           alt=""
                           fill
                           className="object-cover opacity-85"
                           sizes="120px"
                         />
-                        <span className="absolute bottom-1 left-1 text-[8px] text-white drop-shadow">
-                          Хиты
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <span className="absolute bottom-1 left-1 text-[8px] font-medium text-white drop-shadow">
+                          Каталог поставщиков
+                        </span>
+                        <span className="absolute right-1 top-1 rounded bg-[#89ff1a]/90 px-1 text-[6px] font-bold text-black">
+                          ✓
                         </span>
                       </div>
                       <div className="relative h-16 overflow-hidden rounded-lg border border-white/10">
                         <Image
-                          src={mockImages.cardB}
+                          src={mockImages.rfq}
                           alt=""
                           fill
                           className="object-cover opacity-85"
                           sizes="120px"
                         />
-                        <span className="absolute bottom-1 left-1 text-[8px] text-white drop-shadow">
-                          Новинки
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <span className="absolute bottom-1 left-1 text-[8px] font-medium text-white drop-shadow">
+                          Открытые заявки
+                        </span>
+                        <span className="absolute right-1 top-1 rounded bg-[#8dcfff]/90 px-1 text-[6px] font-bold text-[#0b111a]">
+                          24
                         </span>
                       </div>
                     </div>
@@ -260,9 +340,16 @@ export default function Hero() {
                         preserveAspectRatio="none"
                       >
                         <path
-                          d="M0 26 C40 20 55 6 90 12 C120 17 130 30 165 22 C195 15 210 4 245 8 C260 10 270 6 280 2"
+                          d="M0 28 C35 22 50 14 85 18 C115 21 125 8 160 12 C190 15 205 26 235 20 C255 16 268 10 280 6"
                           fill="none"
-                          stroke="rgba(149, 255, 70, 0.6)"
+                          stroke="rgba(141, 207, 255, 0.65)"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M0 22 C45 18 70 10 110 14 C145 17 165 6 200 10 C230 13 250 24 280 14"
+                          fill="none"
+                          stroke="rgba(149, 255, 70, 0.55)"
                           strokeWidth="2"
                           strokeLinecap="round"
                         />
@@ -272,8 +359,11 @@ export default function Hero() {
                           strokeWidth="1"
                         />
                       </svg>
+                      <span className="absolute left-1.5 top-1 text-[7px] text-zinc-500">
+                        ERP
+                      </span>
                       <span className="absolute right-1.5 top-1 text-[8px] text-zinc-500">
-                        Заказы · 7 дней
+                        Оборот · 12 мес
                       </span>
                     </div>
                   </div>
