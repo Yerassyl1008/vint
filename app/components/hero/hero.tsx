@@ -291,40 +291,6 @@ export default function Hero() {
                         Поставщики и заявки — одна площадка для закупок
                       </p>
                     </div>
-                    <div className="relative h-5 shrink-0 overflow-hidden rounded border border-white/10 bg-[#0a1018]">
-                      <svg
-                        viewBox="0 0 280 36"
-                        aria-hidden="true"
-                        className="h-full w-full"
-                        preserveAspectRatio="none"
-                      >
-                        <path
-                          d="M0 28 C35 22 50 14 85 18 C115 21 125 8 160 12 C190 15 205 26 235 20 C255 16 268 10 280 6"
-                          fill="none"
-                          stroke="rgba(141, 207, 255, 0.65)"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M0 22 C45 18 70 10 110 14 C145 17 165 6 200 10 C230 13 250 24 280 14"
-                          fill="none"
-                          stroke="rgba(149, 255, 70, 0.55)"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M0 32 L280 32"
-                          stroke="rgba(255,255,255,0.1)"
-                          strokeWidth="1"
-                        />
-                      </svg>
-                      <span className="absolute left-1.5 top-1 text-[7px] text-zinc-500">
-                        ERP
-                      </span>
-                      <span className="absolute right-1.5 top-1 text-[8px] text-zinc-500">
-                        Оборот · 12 мес
-                      </span>
-                    </div>
                   </div>
                 </div>
               </div>
