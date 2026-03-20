@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { z } from "zod";
 
 const contactSchema = z.object({
@@ -34,6 +34,17 @@ export default function Contacts() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+
+  useEffect(() => {
+    if (typeof window === "undefined" || window.location.hash !== "#contacts") return;
+    const t = window.setTimeout(() => {
+      document.getElementById("contacts")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 80);
+    return () => window.clearTimeout(t);
+  }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

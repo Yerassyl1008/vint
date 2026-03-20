@@ -25,9 +25,9 @@ function formatTelegramMessage(payload: ContactPayload) {
 
 export async function POST(request: Request) {
   const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
-  const telegramChatId = process.env.TELEGRAM_CHAT_ID;
+  const telegramChatIds = process.env.TELEGRAM_CHAT_ID;
 
-  if (!telegramToken || !telegramChatId) {
+  if (!telegramToken || !telegramChatIds) {
     return NextResponse.json(
       { error: "Server is not configured." },
       { status: 500 },
@@ -52,22 +52,25 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
-  const telegramResponse = await fetch(
-    `https://api.telegram.org/bot${telegramToken}/sendMessage`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chat_id: telegramChatId,
-        text: formatTelegramMessage(payload),
+  const chatIds = telegramChatIds.split(",").map((id) => id.trim()).filter(Boolean);
+  const message = formatTelegramMessage(payload);
+
+  const results = await Promise.allSettled(
+    chatIds.map((chatId) =>
+      fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: chatId, text: message }),
+        cache: "no-store",
       }),
-      cache: "no-store",
-    },
+    ),
   );
 
-  if (!telegramResponse.ok) {
+  const allFailed = results.every(
+    (r) => r.status === "rejected" || (r.status === "fulfilled" && !r.value.ok),
+  );
+
+  if (allFailed) {
     return NextResponse.json(
       { error: "Failed to send message to Telegram." },
       { status: 502 },

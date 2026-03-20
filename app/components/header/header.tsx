@@ -1,7 +1,6 @@
  "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { MouseEvent, useEffect, useState } from "react";
 
 const navItems = [
@@ -10,24 +9,29 @@ const navItems = [
   { label: "Контакты", href: "/contacts" },
 ];
 
-function TelegramIcon() {
+/** Белый самолётик на цветном круге; путь сбалансирован внутри 24×24, без «пустоты» снизу. */
+function TelegramIcon({ size = "sm" }: { size?: "sm" | "md" }) {
+  const sizeClass = size === "md" ? "h-6 w-6" : "h-5 w-5";
   return (
     <svg
       aria-hidden="true"
       viewBox="0 0 24 24"
-      className="h-5 w-5 fill-white"
+      preserveAspectRatio="xMidYMid meet"
+      shapeRendering="geometricPrecision"
+      className={`block shrink-0 fill-current ${sizeClass}`}
     >
-      <path d="M20.67 3.61a1.5 1.5 0 0 0-1.55-.2L3.95 9.87a1.5 1.5 0 0 0 .08 2.8l3.8 1.36 1.36 4.53a1.5 1.5 0 0 0 2.62.55l2.31-2.79 3.97 2.94a1.5 1.5 0 0 0 2.36-.9l2.23-13.1a1.5 1.5 0 0 0-.61-1.65Zm-2.69 3.59-8.46 7.94-.84-2.81 9.3-5.13Z" />
+      <path d="M20.665 3.717l-17.73 6.837c-1.204.488-1.196 1.161-.222 1.462l4.552 1.42 10.533-6.645c.498-.303.953-.14.579.192l-8.533 7.833-.323 4.835c.48 0 .691-.218.96-.456l2.3-2.235 4.778 3.527c.883.488 1.52.235 1.738-.824l3.1-14.637c.275-1.31-.488-1.902-1.33-1.552z" />
     </svg>
   );
 }
 
-function WhatsAppIcon() {
+function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
       viewBox="0 0 24 24"
-      className="h-5 w-5 fill-current"
+      preserveAspectRatio="xMidYMid meet"
+      className={`block shrink-0 fill-current [overflow:visible] ${className ?? "size-5"}`}
     >
       <path d="M20.52 3.48A11.9 11.9 0 0 0 12.04 0C5.44 0 .08 5.36.08 11.96c0 2.1.55 4.16 1.6 5.98L0 24l6.22-1.63a11.9 11.9 0 0 0 5.81 1.48h.01c6.6 0 11.96-5.36 11.96-11.96 0-3.2-1.25-6.2-3.48-8.4ZM12.04 21.8c-1.8 0-3.56-.48-5.1-1.38l-.37-.22-3.7.97.98-3.61-.24-.37a9.77 9.77 0 0 1-1.5-5.24c0-5.4 4.4-9.8 9.81-9.8a9.75 9.75 0 0 1 6.94 2.88 9.74 9.74 0 0 1 2.87 6.94c0 5.4-4.4 9.8-9.8 9.81Zm5.36-7.31c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.65.15-.2.29-.75.95-.92 1.14-.17.2-.34.22-.63.08-.29-.15-1.23-.45-2.34-1.44-.87-.78-1.45-1.74-1.62-2.03-.17-.29-.02-.44.13-.59.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.51-.08-.15-.65-1.57-.89-2.16-.24-.57-.48-.49-.65-.5h-.56c-.2 0-.51.07-.78.37s-1.02.99-1.02 2.42c0 1.43 1.04 2.81 1.18 3 .15.2 2.04 3.12 4.95 4.37.69.3 1.24.47 1.67.6.7.22 1.33.19 1.84.11.56-.08 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.06-.12-.24-.2-.52-.34Z" />
     </svg>
@@ -139,17 +143,19 @@ export default function Header() {
           </Link>
           <Link
             href="https://t.me/Startup0916"
+            target="_blank"
+            rel="noreferrer"
             aria-label="Telegram"
-            className="flex items-center justify-center rounded-full bg-[#34a9df] transition hover:scale-105"
+            className="inline-flex h-[34px] min-h-[34px] w-[34px] min-w-[34px] shrink-0 items-center justify-center rounded-full bg-[#34a9df] p-0 leading-none text-white transition hover:scale-105 hover:bg-[#45b8ea]"
           >
-            <Image src="/Telegram_2019_Logo.svg.png" alt="Telegram" width={34} height={34} />
+            <TelegramIcon />
           </Link>
           <Link
             href="https://wa.me/79525394971"
             target="_blank"
             rel="noreferrer"
             aria-label="WhatsApp"
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#25d366] text-white transition hover:scale-105 hover:bg-[#35e576]"
+            className="inline-flex h-[34px] min-h-[34px] w-[34px] min-w-[34px] shrink-0 items-center justify-center rounded-full bg-[#25d366] text-white transition hover:scale-105 hover:bg-[#35e576]"
           >
             <WhatsAppIcon />
           </Link>
@@ -162,13 +168,15 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="ml-auto flex items-center gap-3 lg:hidden">
+        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3 lg:hidden">
           <Link
-            href="#"
+            href="https://t.me/Startup0916"
+            target="_blank"
+            rel="noreferrer"
             aria-label="Telegram"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#34a9df]"
+            className="inline-flex h-10 min-h-10 w-10 min-w-10 shrink-0 items-center justify-center rounded-full bg-[#34a9df] p-0 leading-none text-white transition hover:bg-[#45b8ea] active:scale-95"
           >
-            <TelegramIcon />
+            <TelegramIcon size="md" />
           </Link>
           <Link
             href="tel:+79525394971"
@@ -212,13 +220,16 @@ export default function Header() {
             >
               +7 (952) 539-49-71
             </Link>
-            <button
-              type="button"
-              onClick={closeMenu}
-              className="w-full rounded-full bg-[#89ff1a] px-6 py-3 text-base font-bold text-black transition hover:bg-[#9dff46]"
+            <Link
+              href="/#contacts"
+              onClick={(event) => {
+                closeMenu();
+                handleContactsClick(event);
+              }}
+              className="block w-full rounded-full bg-[#89ff1a] px-6 py-3 text-center text-base font-bold text-black transition hover:bg-[#9dff46]"
             >
               Обсудить проект
-            </button>
+            </Link>
           </div>
         </div>
       )}

@@ -1,7 +1,49 @@
  "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { MouseEvent } from "react";
+
+/** Декоративные превью для макета (стабильные по seed) */
+const mockImages = {
+  hero: "https://picsum.photos/seed/basteam-hero/200/120",
+  cardA: "https://picsum.photos/seed/basteam-a/160/100",
+  cardB: "https://picsum.photos/seed/basteam-b/160/100",
+} as const;
+
+function QuoteIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.813l1.048 1.381C6.402 7.723 5 10.5 5 13c0 1.5.5 2.5 1.5 3.5L4.583 17.321zm11.834 0C15.387 16.227 14.834 15 14.834 13.011c0-3.5 2.457-6.637 6.03-8.813l1.048 1.381C17.653 7.723 16.25 10.5 16.25 13c0 1.5.5 2.5 1.5 3.5l-1.667-1.179z" />
+    </svg>
+  );
+}
+
+function StarIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" aria-hidden="true" fill="currentColor">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
+  );
+}
+
+/** Иконка человека в круге — без внешних картинок, всегда отображается */
+function ReviewPersonAvatar({ variant }: { variant: "lime" | "sky" }) {
+  const styles =
+    variant === "lime"
+      ? "border-[#89ff1a]/35 bg-[#89ff1a]/12 text-[#cfff9f]"
+      : "border-[#8dcfff]/40 bg-[#8dcfff]/12 text-[#bae6fd]";
+  return (
+    <div
+      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border ${styles}`}
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+      </svg>
+    </div>
+  );
+}
 
 export default function Hero() {
   const handleContactsClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -30,8 +72,8 @@ export default function Hero() {
         <div className="hero-mesh hero-mesh-slow absolute right-[15%] top-[48%] h-64 w-64 rounded-full bg-[#ddd1ff]/22" />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-10 px-6 py-14 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:py-16">
-        <div className="max-w-[680px]">
+      <div className="relative mx-auto flex w-full max-w-[1360px] flex-col items-center gap-10 px-6 py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-8 lg:py-16">
+        <div className="mx-auto flex w-full min-w-0 max-w-[680px] flex-col items-center text-center lg:mx-0 lg:items-start lg:text-left">
           <h1 className="text-4xl leading-[1.1] font-extrabold text-white sm:text-5xl lg:text-5xl">
             Создаем цифровые решения для роста вашего бизнеса
           </h1>
@@ -43,16 +85,28 @@ export default function Hero() {
             <br />в топ поисковых систем
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <span className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200">
+          <div className="mt-6 flex w-full flex-wrap justify-center gap-3 lg:justify-start">
+            <Link
+              href="#contacts"
+              onClick={handleContactsClick}
+              className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200 transition-all duration-300 ease-out hover:scale-[1.04] hover:border-[#89ff1a]/50 hover:bg-[#89ff1a]/15 hover:text-[#cfff9f] hover:shadow-[0_0_24px_rgba(137,255,26,0.22)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89ff1a]"
+            >
               Web-разработка
-            </span>
-            <span className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200">
+            </Link>
+            <Link
+              href="#contacts"
+              onClick={handleContactsClick}
+              className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200 transition-all duration-300 ease-out hover:scale-[1.04] hover:border-[#89ff1a]/50 hover:bg-[#89ff1a]/15 hover:text-[#cfff9f] hover:shadow-[0_0_24px_rgba(137,255,26,0.22)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89ff1a]"
+            >
               UX/UI дизайн
-            </span>
-            <span className="rounded-full border border-[#89ff1a]/30 bg-[#89ff1a]/10 px-4 py-2 text-sm font-medium text-[#cfff9f]">
+            </Link>
+            <Link
+              href="#contacts"
+              onClick={handleContactsClick}
+              className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-medium text-zinc-200 transition-all duration-300 ease-out hover:scale-[1.04] hover:border-[#89ff1a]/50 hover:bg-[#89ff1a]/15 hover:text-[#cfff9f] hover:shadow-[0_0_24px_rgba(137,255,26,0.22)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89ff1a]"
+            >
               SEO и аналитика
-            </span>
+            </Link>
           </div>
 
           <Link
@@ -64,23 +118,23 @@ export default function Hero() {
             <span aria-hidden="true">→</span>
           </Link>
 
-          <div className="mt-8 grid max-w-[560px] grid-cols-3 gap-3 sm:gap-4">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+          <div className="mt-8 grid w-full max-w-[560px] grid-cols-3 gap-3 sm:gap-4 lg:mx-0">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center backdrop-blur-sm lg:text-left">
               <p className="text-2xl font-extrabold text-[#89ff1a]">30+</p>
               <p className="mt-1 text-xs text-zinc-300 sm:text-sm">проектов в портфеле</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center backdrop-blur-sm lg:text-left">
               <p className="text-2xl font-extrabold text-[#89ff1a]">8 лет</p>
               <p className="mt-1 text-xs text-zinc-300 sm:text-sm">в digital-разработке</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center backdrop-blur-sm lg:text-left">
               <p className="text-2xl font-extrabold text-[#89ff1a]">14 дней</p>
               <p className="mt-1 text-xs text-zinc-300 sm:text-sm">на первый релиз</p>
             </div>
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[560px] lg:mx-0">
+        <div className="relative mx-auto w-full min-w-0 max-w-[560px] lg:mx-0">
           <div className="absolute left-3 top-8 hidden rounded-2xl border border-white/10 bg-[#0b111a]/80 px-4 py-3 text-sm text-zinc-200 backdrop-blur-md xl:block">
             <p className="text-[#89ff1a]">+42%</p>
             <p className="mt-1">рост конверсии</p>
@@ -91,53 +145,210 @@ export default function Hero() {
           </div>
           <div className="hero-float absolute inset-0 rounded-[32px] bg-gradient-to-br from-[#89ff1a]/25 via-[#8dcfff]/12 to-transparent blur-2xl" />
           <div className="relative overflow-hidden rounded-[32px] border border-white/15 bg-[#0b111a]/70 p-6 backdrop-blur-md sm:p-8">
-            <div className="mb-5 flex items-center gap-2 border-b border-white/10 pb-4">
-              <span className="h-2.5 w-2.5 rounded-full bg-white/35" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="ml-3 h-2 w-24 rounded-full bg-white/10" />
+            <div className="mb-5 flex min-h-[2.25rem] flex-wrap items-center gap-2 border-b border-white/10 pb-4 sm:flex-nowrap">
+              <div className="flex shrink-0 gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-white/35" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              </div>
+              <div className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className="h-3 w-3 shrink-0 text-zinc-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="5" y="11" width="14" height="10" rx="2" />
+                  <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                </svg>
+                <span className="truncate text-[10px] text-zinc-400">
+                  bas-team.online<span className="text-zinc-500">/projects</span>
+                </span>
+                <span className="ml-auto shrink-0 rounded bg-[#89ff1a]/15 px-1.5 py-0.5 text-[8px] font-medium text-[#cfff9f]">
+                  Live
+                </span>
+              </div>
+              <div className="ml-auto flex shrink-0 items-center gap-1.5 text-[9px] text-zinc-500">
+                <span className="hidden sm:inline">Обновлено сейчас</span>
+                <span className="h-2 w-8 rounded-full bg-white/10" />
+                <span className="h-2 w-2 rounded-full bg-emerald-400/80" title="" />
+              </div>
             </div>
 
             <div className="grid gap-4">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-                <div className="mb-3 h-2 w-24 rounded-full bg-white/15" />
-                <svg viewBox="0 0 320 96" aria-hidden="true" className="h-24 w-full">
-                  <path
-                    d="M0 72 C30 65 40 30 70 38 C98 45 106 86 140 68 C170 52 175 20 208 25 C236 29 248 58 278 56 C300 54 310 44 320 32"
-                    fill="none"
-                    stroke="rgba(149, 255, 70, 0.9)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M0 88 L320 88"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.18)"
-                    strokeWidth="2"
-                  />
-                </svg>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-3 sm:p-4">
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                    Превью сайта
+                  </span>
+                  <div className="flex items-center gap-2 text-[9px] text-zinc-500">
+                    <span>Next.js</span>
+                    <span className="text-zinc-600">·</span>
+                    <span>Tailwind</span>
+                    <span className="rounded border border-[#89ff1a]/30 bg-[#89ff1a]/10 px-1.5 py-0.5 font-medium text-[#cfff9f]">
+                      v2.4
+                    </span>
+                  </div>
+                </div>
+                <div className="flex gap-2 sm:gap-3">
+                  <div className="flex w-[28%] shrink-0 flex-col gap-2 rounded-lg border border-dashed border-white/15 bg-[#0f1622]/80 p-2">
+                    <p className="text-[9px] font-medium text-zinc-500">Меню</p>
+                    <span className="text-[10px] text-zinc-300">Главная</span>
+                    <span className="text-[10px] text-zinc-400">Каталог</span>
+                    <span className="text-[10px] text-zinc-400">Доставка</span>
+                    <span className="text-[10px] text-zinc-400">Контакты</span>
+                    <div className="mt-1 space-y-1.5 border-t border-white/10 pt-2">
+                      <div className="h-6 rounded-md bg-white/[0.06]" />
+                      <div className="h-6 rounded-md bg-white/[0.06]" />
+                    </div>
+                  </div>
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[11px] font-semibold text-white">Интернет-магазин</span>
+                      <span className="rounded-full bg-white/10 px-2 py-0.5 text-[8px] text-zinc-400">
+                        в разработке
+                      </span>
+                    </div>
+                    <div className="relative h-[72px] overflow-hidden rounded-lg border border-white/10 sm:h-[84px]">
+                      <Image
+                        src={mockImages.hero}
+                        alt=""
+                        fill
+                        className="object-cover opacity-90"
+                        sizes="(max-width: 640px) 100vw, 280px"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b111a] via-[#0b111a]/40 to-transparent" />
+                      <p className="absolute bottom-2 left-2 max-w-[90%] text-[10px] font-medium text-white drop-shadow">
+                        Новая коллекция — скидки до 30%
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      <div className="relative h-16 overflow-hidden rounded-lg border border-white/10">
+                        <Image
+                          src={mockImages.cardA}
+                          alt=""
+                          fill
+                          className="object-cover opacity-85"
+                          sizes="120px"
+                        />
+                        <span className="absolute bottom-1 left-1 text-[8px] text-white drop-shadow">
+                          Хиты
+                        </span>
+                      </div>
+                      <div className="relative h-16 overflow-hidden rounded-lg border border-white/10">
+                        <Image
+                          src={mockImages.cardB}
+                          alt=""
+                          fill
+                          className="object-cover opacity-85"
+                          sizes="120px"
+                        />
+                        <span className="absolute bottom-1 left-1 text-[8px] text-white drop-shadow">
+                          Новинки
+                        </span>
+                      </div>
+                    </div>
+                    <div className="relative h-9 overflow-hidden rounded-md border border-white/10 bg-[#0a1018]">
+                      <svg
+                        viewBox="0 0 280 36"
+                        aria-hidden="true"
+                        className="h-full w-full"
+                        preserveAspectRatio="none"
+                      >
+                        <path
+                          d="M0 26 C40 20 55 6 90 12 C120 17 130 30 165 22 C195 15 210 4 245 8 C260 10 270 6 280 2"
+                          fill="none"
+                          stroke="rgba(149, 255, 70, 0.6)"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M0 32 L280 32"
+                          stroke="rgba(255,255,255,0.1)"
+                          strokeWidth="1"
+                        />
+                      </svg>
+                      <span className="absolute right-1.5 top-1 text-[8px] text-zinc-500">
+                        Заказы · 7 дней
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-                  <div className="space-y-2.5">
-                    <div className="h-2 w-16 rounded-full bg-white/20" />
-                    <div className="h-2 w-full rounded-full bg-white/10" />
-                    <div className="h-2 w-4/5 rounded-full bg-white/10" />
-                    <div className="h-2 w-3/5 rounded-full bg-white/10" />
+                <div className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+                  <QuoteIcon className="pointer-events-none absolute right-2 top-2 h-7 w-7 text-white/[0.08]" />
+                  <div className="mb-3 flex items-center gap-2.5 pr-5">
+                    <ReviewPersonAvatar variant="lime" />
+                    <div className="min-w-0 text-left">
+                      <p className="text-xs font-medium text-zinc-100">Алексей, eCom</p>
+                      <p className="text-[11px] text-zinc-400">владелец магазина</p>
+                    </div>
+                  </div>
+                  <p className="text-left text-[11px] leading-relaxed text-zinc-300">
+                    &quot;Запустили сайт за 2 недели. Конверсии выросли, а заявки теперь
+                    приходят стабильно каждый день.&quot;
+                  </p>
+                  <div className="mt-3 flex items-center gap-0.5 text-[#89ff1a]" aria-hidden="true">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <StarIcon key={i} className="h-3 w-3" />
+                    ))}
                   </div>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-                  <div className="space-y-2.5">
-                    <div className="h-2 w-14 rounded-full bg-white/20" />
-                    <div className="h-2 w-full rounded-full bg-white/10" />
-                    <div className="h-2 w-2/3 rounded-full bg-white/10" />
-                    <div className="h-2 w-5/6 rounded-full bg-white/10" />
+                <div className="relative rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+                  <QuoteIcon className="pointer-events-none absolute right-2 top-2 h-7 w-7 text-white/[0.08]" />
+                  <div className="mb-3 flex items-center gap-2.5 pr-5">
+                    <ReviewPersonAvatar variant="sky" />
+                    <div className="min-w-0 text-left">
+                      <p className="text-xs font-medium text-zinc-100">Марина, SaaS</p>
+                      <p className="text-[11px] text-zinc-400">продакт-менеджер</p>
+                    </div>
+                  </div>
+                  <p className="text-left text-[11px] leading-relaxed text-zinc-300">
+                    &quot;Сделали понятный UX и аккуратный дизайн. MVP собрали быстро,
+                    команда всегда была на связи.&quot;
+                  </p>
+                  <div className="mt-3 flex items-center gap-0.5 text-[#8dcfff]" aria-hidden="true">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <StarIcon key={i} className="h-3 w-3" />
+                    ))}
                   </div>
                 </div>
               </div>
 
-              <div className="h-12 rounded-2xl border border-[#89ff1a]/25 bg-gradient-to-r from-[#89ff1a]/20 to-[#8dcfff]/15" />
+              <div className="rounded-2xl border border-[#89ff1a]/25 bg-gradient-to-r from-[#89ff1a]/20 to-[#8dcfff]/15 p-3">
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-[#89ff1a]" />
+                    <span className="text-[10px] font-medium text-zinc-300">CI/CD pipeline</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="rounded border border-black/20 bg-black/15 px-1.5 py-0.5 text-[8px] text-zinc-400">
+                      lint ✓
+                    </span>
+                    <span className="rounded border border-black/20 bg-black/15 px-1.5 py-0.5 text-[8px] text-zinc-400">
+                      tests ✓
+                    </span>
+                    <span className="rounded border border-black/20 bg-black/15 px-1.5 py-0.5 text-[8px] text-zinc-400">
+                      build
+                    </span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="h-2 rounded-full bg-black/20" />
+                  <div className="h-2 rounded-full bg-black/20" />
+                  <div className="h-2 rounded-full bg-black/20" />
+                </div>
+                <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-black/10 pt-2 text-[9px]">
+                  <span className="text-zinc-500">Деплой на production · 2 мин назад</span>
+                  <span className="font-semibold text-[#cfff9f]">Готово 100%</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
