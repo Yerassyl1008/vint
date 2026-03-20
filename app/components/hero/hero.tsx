@@ -194,7 +194,7 @@ export default function Hero() {
                 <div className="flex h-full min-h-0 flex-col p-1 sm:p-1.5">
                   <div className="mb-0.5 shrink-0 flex flex-wrap items-center justify-between gap-1">
                     <span className="text-[8px] font-semibold uppercase leading-tight tracking-wide text-zinc-500">
-                      B2B-маркетплейс · кейс
+                      B2B-маркетплейс
                     </span>
                     <div className="flex flex-wrap items-center gap-1 text-[7px] text-zinc-500">
                       <span>Next.js</span>
@@ -223,9 +223,6 @@ export default function Hero() {
                         Логистика
                       </span>
                     </div>
-                    <p className="shrink-0 text-[7px] leading-tight text-zinc-500">
-                      Полный скрин — листайте внутри рамки
-                    </p>
                     <div
                       className="relative min-h-[100px] flex-1 overflow-y-auto overflow-x-hidden overscroll-contain rounded-lg bg-zinc-950 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] [scrollbar-color:rgba(255,255,255,0.22)_transparent] [scrollbar-width:thin] sm:min-h-0"
                       tabIndex={0}
