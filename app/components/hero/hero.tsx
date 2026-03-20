@@ -132,7 +132,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full min-w-0 max-w-[560px] lg:mx-0">
+        <div className="relative mx-auto w-full min-w-0 max-w-[720px] lg:mx-0">
           <div className="absolute left-3 top-8 hidden rounded-2xl border border-white/10 bg-[#0b111a]/80 px-4 py-3 text-sm text-zinc-200 backdrop-blur-md xl:block">
             <p className="text-[#89ff1a]">+42%</p>
             <p className="mt-1">рост конверсии</p>
@@ -178,8 +178,13 @@ export default function Hero() {
             </div>
 
             <div className="grid gap-2.5">
-              <div className="flex aspect-[16/9] w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-1.5 sm:p-2">
-                <div className="mb-1 shrink-0 flex flex-wrap items-center justify-between gap-1.5">
+              {/*
+                Адаптивное соотношение: на телефоне выше (4:3), на xl — низкая широкая (3:1).
+                Оболочка без flex — aspect-ratio не ломается.
+              */}
+              <div className="aspect-[4/3] w-full max-w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] sm:aspect-[5/2] lg:aspect-[3/1]">
+                <div className="flex h-full min-h-0 flex-col p-1.5 sm:p-2">
+                  <div className="mb-1 shrink-0 flex flex-wrap items-center justify-between gap-1.5">
                   <span className="text-[9px] font-semibold uppercase tracking-wide text-zinc-500">
                     CRM · админ-панель
                   </span>
@@ -191,9 +196,9 @@ export default function Hero() {
                       staging
                     </span>
                   </div>
-                </div>
-                <div className="flex min-h-0 flex-1 gap-1 sm:gap-1.5">
-                  <div className="flex h-full min-h-0 w-[32%] shrink-0 flex-col overflow-hidden rounded-lg border border-white/12 bg-gradient-to-b from-[#0c121c] to-[#080c14] p-1 shadow-inner shadow-black/40 sm:p-1.5">
+                  </div>
+                  <div className="flex min-h-0 flex-1 gap-1 sm:gap-1.5">
+                  <div className="hidden h-full min-h-0 w-[32%] shrink-0 flex-col overflow-hidden rounded-lg border border-white/12 bg-gradient-to-b from-[#0c121c] to-[#080c14] p-1 shadow-inner shadow-black/40 sm:flex sm:p-1.5">
                     <div className="mb-1 flex items-center gap-1 border-b border-white/10 pb-1">
                       <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#89ff1a]/20 text-[9px] font-bold text-[#cfff9f]">
                         B
@@ -277,13 +282,13 @@ export default function Hero() {
                         Логистика
                       </span>
                     </div>
-                    <div className="relative min-h-0 flex-1 overflow-hidden rounded-lg border border-white/10">
+                    <div className="relative min-h-[120px] flex-1 overflow-hidden rounded-lg border border-white/10 sm:min-h-0">
                       <Image
                         src={marketplaceMockupImage.src}
                         alt={marketplaceMockupImage.alt}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 640px) 100vw, 320px"
+                        sizes="(max-width: 640px) 100vw, 720px"
                         priority
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0b111a] via-[#0b111a]/45 to-[#0b111a]/20" />
@@ -291,6 +296,7 @@ export default function Hero() {
                         Поставщики и заявки — одна площадка для закупок
                       </p>
                     </div>
+                  </div>
                   </div>
                 </div>
               </div>
